@@ -39,7 +39,7 @@ For example, the following data of question ,
 
 can be used to construct web elements like the following.
 
-<img title="" src="file:///Users/zhengrobin/Library/Application%20Support/marktext/images/2022-11-18-16-39-23-image.png" alt="" width="412">
+<img src="images\question-image1.png" title="" alt="" width="401">
 
 ### 1.1 Get Question Data.
 
@@ -165,7 +165,7 @@ To display a single quesiton, it is important to keep in mind the following.
   
   The following is an example of this type of question.
   
-  ![](/Users/zhengrobin/Library/Application%20Support/marktext/images/2022-11-23-00-09-56-image.png)
+  ![](images/question-image2.png)
   
   The question in red box will only be displayed when the other quesion is answered as Yes.
   
@@ -220,11 +220,15 @@ To display a single quesiton, it is important to keep in mind the following.
 
 #### 1.3.1 **Display the quetstions with answerType of *SELECT_SINGLE***
 
-![](/Users/zhengrobin/Library/Application%20Support/marktext/images/2022-11-23-11-20-37-image.png)
+![](images/question-image3.png)
 
 The select options tegother with the feeDescriptions will also be loaded
 
-![](/Users/zhengrobin/Library/Application%20Support/marktext/images/2022-11-23-11-22-25-image.png)
+
+
+![](images/question-image4.png)
+
+
 
 The Json data for the above question is as the following.
 
@@ -370,9 +374,8 @@ The Json data for the above question is as the following.
 }
 ```
 
-#### 1.3.2 **Display questions with multiple type of answerType**
+#### 1.3.2 **Display questions with multiple type of answerType**![](images/question-image5.png)
 
-![](/Users/zhengrobin/Library/Application%20Support/marktext/images/2022-11-23-11-31-10-image.png)
 the above quesion can be rendered in with the following Json data
 
 ```json
@@ -711,8 +714,8 @@ A full constucture of fareDetails is like the following.
                 "ageMax":"",
                 "specialNotes":"",
                 "unitsAvailable":""
-    
-                        
+
+
 }]
             "availabilityShared": "",
             "available": ""
