@@ -117,104 +117,109 @@ To display the questions, the information for question groups should be first di
 
 To display a single question, it is important to keep in mind the following.
 
-- **Describe the question and selectOption**
-  Usually the value of property ***title*** describes the question well, but if the values of properties ***description*** and ***feeDescription*** are not empty or null, they should be displayed to the user. Especially the value of ***feeDescription***, it usually serves as a reminder to the user how the answer of current question can affect the final quote.
-  
-  The above properties for questions also apply to selectOptions descriptions, ***title, description, feeDescription***.
+#### 1.2.1 Describe the question and selectOption
 
-- **Data type of the answer expected**
-  
-  The value of the ***answerType*** property indicates what kind of data type is expected for the answer to the current question. So it also defines how we display the input control for the answer to the current question and also how we validate the answer.
-  
-  Possible values for this property include  ***BOOLEAN, INTEGER, DECIMAL, TEXT, BINARY, DATE, TIME, SELECT_SINGLE, SELECT_MULTIPLE, EMAIL, PHONE***. 11 in total for now
-  
-  For example,
-  
-  - a BOOLEAN answer can be displayed with a checkbox
-  
-  - a BINARY answer can be displayed with a file selector
-  
-  - a INTEGER,DECIMAL,TEXT,EMAIL or PHONE can be displayed with a input box or line
-  
-  - a SELECT_SINGLE or  SELECT_MULTIPLE answer can be displayed with a group of check box or a dropdown list box
-  
-  - a DATE or TIME answer can be displayed with a date/time picker.
-  
-  The style and format of the controls can be designed by the designer, but kind of ***answerType*** should be considered.
+Usually the value of property ***title*** describes the question well, but if the values of properties ***description*** and ***feeDescription*** are not empty or null, they should be displayed to the user. Especially the value of ***feeDescription***, it usually serves as a reminder to the user how the answer of current question can affect the final quote.
 
-- **Placeholder for the answer**
-  To give an example of the answer to the user, we can set a placeholder at the answer control. The vaule of property ***example*** or ***defaultValue***（if presented）  can be used to do this.
+The above properties for questions also apply to selectOptions descriptions, ***title, description, feeDescription***.
 
-- **Autofill**
-  The purpose for some question is to collect one specific type of information for the consumer, for example phone number or gender. These questions are marked by the ***purpose***  property. If the user saves consumer information before booking a product we can use this property to automatically answer this type of questions.
-  
-  The value of the ***purpose*** are extendable, for now possible values include PAX_TITLE, PAX_FIRST_NAME, PAX_MIDDLE_NAME, PAX_LAST_NAME, PAX_FULL_NAME, PAX_GENDER, PAX_EMAIL, PAX_PHONE, PAX_MOBILE, PAX_NATIONALITY, PAX_FULL_ADDRESS, PAX_ADDRESS_LINE_1, PAX_ADDRESS_LINE_2, PAX_STREET_NAME, PAX_STREET_NUMBER, PAX_CITY, PAX_POSTCODE, PAX_STATE, PAX_COUNTRY, PAX_LANGUAGE, PAX_AGE, PAX_DOB, PAX_PLACE_OF_BIRTH, PAX_COUNTRY_OF_BIRTH, PASSPORT_NUMBER, PASSPORT_EXPIRY_DATE, PASSPORT_ISSUED_DATE, PASSPORT_ISSUING_AUTHORITY, PICK_UP, DROP_OFF, FLIGHT_NUMBER_INBOUND, FLIGHT_NUMBER_OUTBOUND, SUPPLIER_NOTES, LOYALTY_PROGRAM_NUMBER, EMERGENCY_CONTACT_RELATION, EMERGENCY_CONTACT_TITLE, EMERGENCY_CONTACT_FIRST_NAME, EMERGENCY_CONTACT_MIDDLE_NAME, EMERGENCY_CONTACT_LAST_NAME, EMERGENCY_CONTACT_FULL_NAME, EMERGENCY_CONTACT_EMAIL, EMERGENCY_CONTACT_PHONE, EMERGENCY_CONTACT_MOBILE, EMERGENCY_CONTACT_FULL_ADDRESS, EMERGENCY_CONTACT_ADDRESS_LINE_1, EMERGENCY_CONTACT_ADDRESS_LINE_2, EMERGENCY_CONTACT_STREET_NAME, EMERGENCY_CONTACT_STREET_NUMBER, EMERGENCY_CONTACT_CITY, EMERGENCY_CONTACT_POSTCODE, EMERGENCY_CONTACT_STATE, EMERGENCY_CONTACT_COUNTRY, ACCOMMODATION_NAME, CHECKIN_DATE, PAX_COUNT_TOTAL.  55 in total for now.
-  
-  Whether we need this function for now will be defined by the product manager.
+#### 1.2.2 Data type of the answer expected
 
-- **Mandatory question or not**
-  
-  To tell the user that whether the current question is mandatory or not, we can use the value of property ***required***
+The value of the ***answerType*** property indicates what kind of data type is expected for the answer to the current question. So it also defines how we display the input control for the answer to the current question and also how we validate the answer.
 
-- **Select options**
-  If the value for the property of ***answerType*** for a question is ***SELECT_SINGLE*** or  ***SELECT_MULTIPLE***, there will be a group of ***selectOptions*** to offer possible options for the user. The above properties of ***title, description, feeDescription*** for questions also apply to selectOptions desciptions.
+Possible values for this property include  ***BOOLEAN, INTEGER, DECIMAL, TEXT, BINARY, DATE, TIME, SELECT_SINGLE, SELECT_MULTIPLE, EMAIL, PHONE***. 11 in total for now
 
-- **followUpQuestions**
-  
-  There are questions that their presence are depends on the answer of other questions.
-  
-  The following is an example of this type of question.
-  
-  <img src="images/question-image2.png" title="" alt="" width="477">
-  
-  The question in the red box will only be displayed when the other question is answered as Yes.
-  
-  This type of questions are only followed up by a question with ***answerType*** of ***SELECT_SINGLE*** or ***SELECT_MULTIPLE***, if one option with property of ***followUpQuestions*** is selected, this will trigger the display of the other question. Otherwise the followUpQuestions will not be displayed. Just as the following data are structrued.
-  
-  ```json
-  {
-    "uuid": "00000002-0001-0012-0003-000000000024",
-    "scope": "PER_GROUP",
-    "answerType": "SELECT_SINGLE",
-    "title": "Are you a member of the Mocha Frequent Flyer program?",
-    "example": "00000002-0001-0012-0003-000000000025",
-    "selectOptions": [
-      {
-        "uuid": "00000002-0001-0012-0003-000000000027",
-        "title": "No"
-      },
-      {
-        "uuid": "00000002-0001-0012-0003-000000000025",
-        "title": "Yes",
-        "followUpQuestions": {
-          "questionGroups": [
-            {
-              "caption": "Frequent Flyer Number",
-              "questions": [
-                {
-                  "uuid": "00000002-0001-0012-0003-000000000026",
-                  "scope": "PER_GROUP",
-                  "answerType": "TEXT",
-                  "title": "Please enter your Mocha Frequent Flyer number",
-                  "example": "1948662547",
-                  "lengthMin": 10,
-                  "lengthMax": 10,
-                  "required": true,
-                  "mustShow": true
-                }
-              ]
-            }
-          ]
-        }
+For example,
+
+- a BOOLEAN answer can be displayed with a checkbox
+
+- a BINARY answer can be displayed with a file selector
+
+- a INTEGER,DECIMAL,TEXT,EMAIL or PHONE can be displayed with a input box or line
+
+- a SELECT_SINGLE or  SELECT_MULTIPLE answer can be displayed with a group of check box or a dropdown list box
+
+- a DATE or TIME answer can be displayed with a date/time picker.
+
+The style and format of the controls can be designed by the designer, but kind of ***answerType*** should be considered.
+
+#### 1.2.3 Placeholder for the answer
+
+To give an example of the answer to the user, we can set a placeholder at the answer control. The vaule of property ***example*** or ***defaultValue***（if presented）  can be used to do this.
+
+#### 1.2.4 Autofill
+
+The purpose for some question is to collect one specific type of information for the consumer, for example phone number or gender. These questions are marked by the ***purpose***  property. If the user saves consumer information before booking a product we can use this property to automatically answer this type of questions.
+
+The value of the ***purpose*** are extendable, for now possible values include PAX_TITLE, PAX_FIRST_NAME, PAX_MIDDLE_NAME, PAX_LAST_NAME, PAX_FULL_NAME, PAX_GENDER, PAX_EMAIL, PAX_PHONE, PAX_MOBILE, PAX_NATIONALITY, PAX_FULL_ADDRESS, PAX_ADDRESS_LINE_1, PAX_ADDRESS_LINE_2, PAX_STREET_NAME, PAX_STREET_NUMBER, PAX_CITY, PAX_POSTCODE, PAX_STATE, PAX_COUNTRY, PAX_LANGUAGE, PAX_AGE, PAX_DOB, PAX_PLACE_OF_BIRTH, PAX_COUNTRY_OF_BIRTH, PASSPORT_NUMBER, PASSPORT_EXPIRY_DATE, PASSPORT_ISSUED_DATE, PASSPORT_ISSUING_AUTHORITY, PICK_UP, DROP_OFF, FLIGHT_NUMBER_INBOUND, FLIGHT_NUMBER_OUTBOUND, SUPPLIER_NOTES, LOYALTY_PROGRAM_NUMBER, EMERGENCY_CONTACT_RELATION, EMERGENCY_CONTACT_TITLE, EMERGENCY_CONTACT_FIRST_NAME, EMERGENCY_CONTACT_MIDDLE_NAME, EMERGENCY_CONTACT_LAST_NAME, EMERGENCY_CONTACT_FULL_NAME, EMERGENCY_CONTACT_EMAIL, EMERGENCY_CONTACT_PHONE, EMERGENCY_CONTACT_MOBILE, EMERGENCY_CONTACT_FULL_ADDRESS, EMERGENCY_CONTACT_ADDRESS_LINE_1, EMERGENCY_CONTACT_ADDRESS_LINE_2, EMERGENCY_CONTACT_STREET_NAME, EMERGENCY_CONTACT_STREET_NUMBER, EMERGENCY_CONTACT_CITY, EMERGENCY_CONTACT_POSTCODE, EMERGENCY_CONTACT_STATE, EMERGENCY_CONTACT_COUNTRY, ACCOMMODATION_NAME, CHECKIN_DATE, PAX_COUNT_TOTAL.  55 in total for now.
+
+Whether we need this function for now will be defined by the product manager.
+
+#### 1.2.5 Mandatory question or not
+
+To tell the user that whether the current question is mandatory or not, we can use the value of property ***required***
+
+#### 1.2.6 Select options
+
+If the value for the property of ***answerType*** for a question is ***SELECT_SINGLE*** or  ***SELECT_MULTIPLE***, there will be a group of ***selectOptions*** to offer possible options for the user. The above properties of ***title, description, feeDescription*** for questions also apply to selectOptions desciptions.
+
+#### 1.2.7 followUpQuestions
+
+There are questions that their presence are depends on the answer of other questions.
+
+The following is an example of this type of question.
+
+<img src="images/question-image2.png" title="" alt="" width="477">
+
+The question in the red box will only be displayed when the other question is answered as Yes.
+
+This type of questions are only followed up by a question with ***answerType*** of ***SELECT_SINGLE*** or ***SELECT_MULTIPLE***, if one option with property of ***followUpQuestions*** is selected, this will trigger the display of the other question. Otherwise the followUpQuestions will not be displayed. Just as the following data are structrued.
+
+```json
+{
+  "uuid": "00000002-0001-0012-0003-000000000024",
+  "scope": "PER_GROUP",
+  "answerType": "SELECT_SINGLE",
+  "title": "Are you a member of the Mocha Frequent Flyer program?",
+  "example": "00000002-0001-0012-0003-000000000025",
+  "selectOptions": [
+    {
+      "uuid": "00000002-0001-0012-0003-000000000027",
+      "title": "No"
+    },
+    {
+      "uuid": "00000002-0001-0012-0003-000000000025",
+      "title": "Yes",
+      "followUpQuestions": {
+        "questionGroups": [
+          {
+            "caption": "Frequent Flyer Number",
+            "questions": [
+              {
+                "uuid": "00000002-0001-0012-0003-000000000026",
+                "scope": "PER_GROUP",
+                "answerType": "TEXT",
+                "title": "Please enter your Mocha Frequent Flyer number",
+                "example": "1948662547",
+                "lengthMin": 10,
+                "lengthMax": 10,
+                "required": true,
+                "mustShow": true
+              }
+            ]
+          }
+        ]
       }
-    ],
-    "required": true,
-    "mustShow": true
-  }
-  ```
+    }
+  ],
+  "required": true,
+  "mustShow": true
+}
+```
 
-- **Whether or not to display the question**
-  theoretically, all questions returned by Livn Api should be displayed to the customer, but if we have decided not to display certain type of question for some reason (for example, privacy), we need to display all the question marked by the property of ***mustShow*** at least (if it is not a followUpQuestions).
+#### 1.2.8 Whether or not to display the question
+
+theoretically, all questions returned by Livn Api should be displayed to the customer, but if we have decided not to display certain type of question for some reason (for example, privacy), we need to display all the question marked by the property of ***mustShow*** at least (if it is not a followUpQuestions).
 
 ### 1.3 Example of displaying questions
 
@@ -569,6 +574,110 @@ For addons, they can be organised in the following four levels
   
   e.g. "See you again package, Privilege to re-purchase this product at half price."
 
+
+
+#### 3.1.4 Data structure of fareDetails
+
+A full constructure of fareDetails is like the following. The structure of addon will be explained later.
+
+```json
+{
+  "fareDetails": {
+    "baseVariants": [
+      {
+        "name": "",
+        "description": "",
+        "specialNotes": "",
+        "timeSlots": [
+          {
+            "name": "",
+            "description": "",
+            "duration": 120,
+            "durationStr": "",
+            "durationRangeMax": 180,
+            "timeStart": "",
+            "timeEnd": "",
+            "specialNotes": "",
+            "fares": [
+              {
+                "uuid": "",
+                "name": "",
+                "description": "",
+                "unitsMin": 1,
+                "unitsMax": 10,
+                "unitsMultipleOf": 1,
+                "paxMin": 1,
+                "paxMax": 4,
+                "ageQualified": true,
+                "ageMin": 18,
+                "ageMax": 80,
+                "specialNotes": "",
+                "unitsAvailable": 999,
+                "price": {
+                  "amount": 100,
+                  "currency": "AUD"
+                },
+                "otherCharges": "",
+                "addOns": [
+                  {
+                    addon
+                  }
+                ],
+                "availabilityUnknown": false
+              }
+            ],
+            "availabilityShared": "",
+            "available": "",
+            "addOns": [
+              {
+                addon
+              }
+            ]
+          }
+        ],
+        "available": "",
+        "addOns": [
+          {
+            addon
+          }
+        ]
+      }
+    ],
+    "addOns": [
+      {
+        addon
+      }
+    ]
+  }
+}
+```
+
+#### 3.1.5 Data structure of addOns
+
+A full constructure of addOns is like the following.
+
+```json
+{
+  "uuid": "",
+  "name": "",
+  "description": "",
+  "unitsMin": 1,
+  "unitsMax": 10,
+  "unitsMultipleOf": 1,
+  "unitsLinkedToParent": true,
+  "ageQualified": true,
+  "ageMin": 18,
+  "ageMax": 80,
+  "specialNotes": "",
+  "unitsAvailable": "",
+  "price": {
+    "amount": 100,
+    "currency": "AUD"
+  },
+  "otherCharges": ""
+}
+```
+
 For example, the following data of fareDetails 
 
 ```json
@@ -674,54 +783,11 @@ can be used to construct web elements like the following.
 
 ![](/Users/zhengrobin/Library/Application%20Support/marktext/images/2022-11-23-16-15-27-image.png)
 
-### 3.2 Data structure of fareDetails
+### 3.2 Display the fareDetails and addOns
 
-A full constucture of fareDetails is like the following.
-
-```json
-{
-  "fareDetails": {
-    "baseVariants": [
-      {
-        "name": "",
-        "description": "",
-        "specialNotes": "",
-        "timeSlots": [
-          {
-            "name": "",
-            "description": "",
-            "duration": 120,
-            "durationStr": "",
-            "durationRangeMax": 180,
-            "timeStart": "",
-            "timeEnd": "",
-            "specialNotes": "",
-            "fares":[{
-                "uuid":"",
-                "name":"",
-                "description":"",
-                "unitsMin":"",
-                "unitsMax":"",
-                "unitsMultipleOf":"",
-                "paxMin":"",
-                "paxMax":"",
-                "ageQualified":"",
-                "ageMin":"",
-                "ageMax":"",
-                "specialNotes":"",
-                "unitsAvailable":""
+#### 3.2.1 Display fareDetails
 
 
-}]
-            "availabilityShared": "",
-            "available": ""
-          }
-        ]
-      }
-    ]
-  }
-}
-```
 
 ## 4. Validate the value from fareSelection / addOnSelection using the data from flow
 
