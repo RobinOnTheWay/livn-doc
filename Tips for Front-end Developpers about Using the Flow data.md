@@ -94,17 +94,17 @@ Let us focus on the structure of a single question.
             "followUpQuestions":questionGroups
          }    
     ]
-    "selectMin":integer,
-    "selectMax":integer,
+    "selectMin":1,
+    "selectMax":3,
     "valueMin":"",
     "valueMax":"",
-    "lengthMin":integer,
-    "lengthMax":integer,
-    "multiLine":boolean,
+    "lengthMin":20,
+    "lengthMax":50,
+    "multiLine":true/false,
     "regex":"",
     "defaultValue":"",
-    "required": boolean,
-    "mustShow": boolean
+    "required": true/false,
+    "mustShow": true/false
 
 }
 ```
