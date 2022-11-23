@@ -100,11 +100,11 @@ Let us focus on the structure of a single question.
     "valueMax":"",
     "lengthMin":20,
     "lengthMax":50,
-    "multiLine":true/false,
+    "multiLine":true,
     "regex":"",
     "defaultValue":"",
-    "required": true/false,
-    "mustShow": true/false
+    "required": true,
+    "mustShow": true
 
 }
 ```
