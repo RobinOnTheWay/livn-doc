@@ -4,9 +4,9 @@
 
 This specification focuses only on suggestions for front-end developers to display questions/fare selections/add-ons and validate answers to them. To understand this, a general understanding about how the checkout flow works is required. The following files describe the whole checkout flow.
 
-- [Livn API v2.0 Developer Guide]("https://dev.livnapi.com/public/Livn_API_v2.0_Developer_Guide.pdf")
+- [Livn API v2.0 Developer Guide](https://dev.livnapi.com/public/Livn_API_v2.0_Developer_Guide.pdf)
 
-- [brief introduction of Checkout flow ]("https://drive.google.com/file/d/1IbJ6DqkAS_Udhj-SWcWjfTgwEVc30dea/view?usp=sharinghttps://drive.google.com/file/d/1IbJ6DqkAS_Udhj-SWcWjfTgwEVc30dea/view?usp=sharing")
+- [brief introduction of Checkout flow ](https://drive.google.com/file/d/1IbJ6DqkAS_Udhj-SWcWjfTgwEVc30dea/view?usp=sharinghttps://drive.google.com/file/d/1IbJ6DqkAS_Udhj-SWcWjfTgwEVc30dea/view?usp=sharing)
 
 ## 1. Display the questions using the data from flow
 
@@ -224,11 +224,7 @@ To display a single quesiton, it is important to keep in mind the following.
 
 The select options tegother with the feeDescriptions will also be loaded
 
-
-
 ![](images/question-image4.png)
-
-
 
 The Json data for the above question is as the following.
 
