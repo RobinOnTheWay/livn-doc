@@ -1,4 +1,4 @@
-# Tips for Front-end Developpers about Using the Flow data
+# Tips for Front-end Developers about Using the Flow data
 
 ## 0. Introduction
 
@@ -45,14 +45,14 @@ can be used to construct web elements like the following.
 
 #### 1.1.1 Timing of getting question data
 
-Questions can be included in the reponse of  any step from calling the API of
+Questions can be included in the response of  any step from calling the API of
 
       **POST**   ***/api/flow***
-before the flow come to the milestone of COMFIRMED BOOKING. They can appear at the milestone of FARE SELECTION, meaning that questions and fareSelections can be returned in the same response by Livn API.
+before the flow comes to the milestone of CONFIRMED BOOKING. They can appear at the milestone of FARE SELECTION, meaning that questions and fareSelections can be returned in the same response by Livn API.
 
 #### 1.1.2 The structure of question data
 
-Serval question goups can be raised at the same step, and serval questions can be included in the same group. So a single question is always embeded in in a structure like the following.
+Serval question groups can be raised at the same step, and several questions can be included in the same group. So a single question is always imbedded in  a structure like the following.
 
 The **caption** for questionGroups are essential element to build the controls to display the quesitons.
 
@@ -109,22 +109,22 @@ Let us focus on the structure of a single question.
 }
 ```
 
-### 1.2 Display the quesitons
+### 1.2 Display questions
 
-Besides of fare selection made by the customer in **FARE_SELECTION** milestone, customer's answers for questions can also affect the final quote. So to avoid misunderstanding or fee disputes, all questions have to be displayed properly.
+Besides the fare selection made by the customer in the **FARE_SELECTION** milestone, customer's answers for questions can also affect the final quote. So to avoid misunderstanding or fee disputes, all questions have to be displayed properly.
 
-To display the questions, the information for question groups shoud be first displayed to general description about the questions to be asked. The value of **caption** for question group should be used here.
+To display the questions, the information for question groups should be first displayed to general description about the questions to be asked. The value of **caption** for question group should be used here.
 
-To display a single quesiton, it is important to keep in mind the following.
+To display a single question, it is important to keep in mind the following.
 
 - **Describe the question and selectOption**
-  Usually the value of property ***title*** describes the question well, but if the values of properties ***description*** and ***feeDescription*** are not empty or null, they should be displayed to the user. Especially the value of ***feeDescription***, it usually serves as a reminder to the user that how the answer of current question can affect the final quote.
+  Usually the value of property ***title*** describes the question well, but if the values of properties ***description*** and ***feeDescription*** are not empty or null, they should be displayed to the user. Especially the value of ***feeDescription***, it usually serves as a reminder to the user how the answer of current question can affect the final quote.
   
-  The above properties for questions also apply to selectOptions desciptions, ***title, description, feeDescription***.
+  The above properties for questions also apply to selectOptions descriptions, ***title, description, feeDescription***.
 
 - **Data type of the answer expected**
   
-  The value of the ***answerType*** property indicate what kind of data type is expected for the answer to current question. So it also defines how we display the input control for the answer to the current question and also how we validate the answer.
+  The value of the ***answerType*** property indicates what kind of data type is expected for the answer to the current question. So it also defines how we display the input control for the answer to the current question and also how we validate the answer.
   
   Possible values for this property include  ***BOOLEAN, INTEGER, DECIMAL, TEXT, BINARY, DATE, TIME, SELECT_SINGLE, SELECT_MULTIPLE, EMAIL, PHONE***. 11 in total for now
   
@@ -138,7 +138,7 @@ To display a single quesiton, it is important to keep in mind the following.
   
   - a SELECT_SINGLE or  SELECT_MULTIPLE answer can be displayed with a group of check box or a dropdown list box
   
-  - a DATE or TIME answer can be displayed with datetime picker.
+  - a DATE or TIME answer can be displayed with a date/time picker.
   
   The style and format of the controls can be designed by the designer, but kind of ***answerType*** should be considered.
 
@@ -146,7 +146,7 @@ To display a single quesiton, it is important to keep in mind the following.
   To give an example of the answer to the user, we can set a placeholder at the answer control. The vaule of property ***example*** or ***defaultValue***（if presented）  can be used to do this.
 
 - **Autofill**
-  The purpose for some questions are collecting one specific type of information for the consumer, for example phone numer or gender. This type of questions are marked by the ***purpose***  property. If the user save consumer information before booking a product we can use this property to automatically answer this type of questions.
+  The purpose for some question is to collect one specific type of information for the consumer, for example phone number or gender. These questions are marked by the ***purpose***  property. If the user saves consumer information before booking a product we can use this property to automatically answer this type of questions.
   
   The value of the ***purpose*** are extendable, for now possible values include PAX_TITLE, PAX_FIRST_NAME, PAX_MIDDLE_NAME, PAX_LAST_NAME, PAX_FULL_NAME, PAX_GENDER, PAX_EMAIL, PAX_PHONE, PAX_MOBILE, PAX_NATIONALITY, PAX_FULL_ADDRESS, PAX_ADDRESS_LINE_1, PAX_ADDRESS_LINE_2, PAX_STREET_NAME, PAX_STREET_NUMBER, PAX_CITY, PAX_POSTCODE, PAX_STATE, PAX_COUNTRY, PAX_LANGUAGE, PAX_AGE, PAX_DOB, PAX_PLACE_OF_BIRTH, PAX_COUNTRY_OF_BIRTH, PASSPORT_NUMBER, PASSPORT_EXPIRY_DATE, PASSPORT_ISSUED_DATE, PASSPORT_ISSUING_AUTHORITY, PICK_UP, DROP_OFF, FLIGHT_NUMBER_INBOUND, FLIGHT_NUMBER_OUTBOUND, SUPPLIER_NOTES, LOYALTY_PROGRAM_NUMBER, EMERGENCY_CONTACT_RELATION, EMERGENCY_CONTACT_TITLE, EMERGENCY_CONTACT_FIRST_NAME, EMERGENCY_CONTACT_MIDDLE_NAME, EMERGENCY_CONTACT_LAST_NAME, EMERGENCY_CONTACT_FULL_NAME, EMERGENCY_CONTACT_EMAIL, EMERGENCY_CONTACT_PHONE, EMERGENCY_CONTACT_MOBILE, EMERGENCY_CONTACT_FULL_ADDRESS, EMERGENCY_CONTACT_ADDRESS_LINE_1, EMERGENCY_CONTACT_ADDRESS_LINE_2, EMERGENCY_CONTACT_STREET_NAME, EMERGENCY_CONTACT_STREET_NUMBER, EMERGENCY_CONTACT_CITY, EMERGENCY_CONTACT_POSTCODE, EMERGENCY_CONTACT_STATE, EMERGENCY_CONTACT_COUNTRY, ACCOMMODATION_NAME, CHECKIN_DATE, PAX_COUNT_TOTAL.  55 in total for now.
   
@@ -157,17 +157,17 @@ To display a single quesiton, it is important to keep in mind the following.
   To tell the user that whether the current question is mandatory or not, we can use the value of property ***required***
 
 - **Select options**
-  If the value for the property of ***answerType*** for a question is ***SELECT_SINGLE*** or  ***SELECT_MULTIPLE***, there will a group of ***selectOptions*** to offer possible options for the user. The above properties of ***title, description, feeDescription*** for questions also apply to selectOptions desciptions.
+  If the value for the property of ***answerType*** for a question is ***SELECT_SINGLE*** or  ***SELECT_MULTIPLE***, there will be a group of ***selectOptions*** to offer possible options for the user. The above properties of ***title, description, feeDescription*** for questions also apply to selectOptions desciptions.
 
 - **followUpQuestions**
   
-  There are questions that their presence are depend on the answer of other questions.
+  There are questions that their presence are depends on the answer of other questions.
   
   The following is an example of this type of question.
   
-  ![](images/question-image2.png)
+  <img src="images/question-image2.png" title="" alt="" width="477">
   
-  The question in red box will only be displayed when the other quesion is answered as Yes.
+  The question in the red box will only be displayed when the other question is answered as Yes.
   
   This type of questions are only followed up by a question with ***answerType*** of ***SELECT_SINGLE*** or ***SELECT_MULTIPLE***, if one option with property of ***followUpQuestions*** is selected, this will trigger the display of the other question. Otherwise the followUpQuestions will not be displayed. Just as the following data are structrued.
   
@@ -218,15 +218,15 @@ To display a single quesiton, it is important to keep in mind the following.
 
 ### 1.3 Example of displaying questions
 
-#### 1.3.1 **Display the quetstions with answerType of *SELECT_SINGLE***
+#### 1.3.1 **Display the questions with answerType of *SELECT_SINGLE***
 
 ![](images/question-image3.png)
 
-The select options tegother with the feeDescriptions will also be loaded
+The select options together with the feeDescriptions will also be loaded
 
 ![](images/question-image4.png)
 
-The Json data for the above question is as the following.
+The Json data for the above question is as follows.
 
 ```json
 {
@@ -372,7 +372,7 @@ The Json data for the above question is as the following.
 
 #### 1.3.2 **Display questions with multiple type of answerType**![](images/question-image5.png)
 
-the above quesion can be rendered in with the following Json data
+the above question can be rendered in with the following Json data
 
 ```json
 {
@@ -454,15 +454,15 @@ the above quesion can be rendered in with the following Json data
 
 ## 2. Validate the user input value for answers before submit to Apis
 
-To avoid error handling when call the Livn Api, validation of the answer to question should be carried out in the front-end before calling the Livn Api.
+To avoid error handling when calling the Livn Api, validation of the answer to the question should be carried out in the front-end before calling the Livn Api.
 
 ### 2.1 Presence validation
 
-Except for followUpQuestions, any question that is marked by the property of ***required***  as true, must be given a answer with value. 
+Except for followUpQuestions, any question that is marked by the property of ***required***  as true, must be given an answer with value. 
 
 For followUpQuestions, if the corresponding selectedOption is selected, and the current followUpQuestion is marked by the property of ***required*** as true, it should also be answered with a value.
 
-Question that is marked by the property of ***required*** as false can be answered or ignored. If answered, the value should be included in the request when calling the LivnApi.
+Questions that are marked by the property of ***required*** as false can be answered or ignored. If answered, the value should be included in the request when calling the LivnApi.
 
 ### 2.2 Format validation
 
@@ -547,10 +547,10 @@ Base Variant → Time Slot → Fare
 
 #### 3.1.3  The 4-level addons
 
-For addons, they can be organized in the following four levels
+For addons, they can be organised in the following four levels
 
 - **Fare level addons**
-  Optional add-on products, that can be booked in conjunction with this `Fare`.
+  Optional add-on products that can be booked in conjunction with this `Fare`.
   e.g. "champagne breakfast" for fare "Adult", or "nutritious breakfast" for fare "Child"
 
 - **Time slot level addons**
