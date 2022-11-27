@@ -165,7 +165,7 @@ If the value for the property of ***answerType*** for a question is ***SELECT_SI
 
 #### 1.2.7 followUpQuestions
 
-There are questions that their presence are depends on the answer of other questions.
+There are questions that their presence are depend on the answer of other questions.
 
 The following is an example of this type of question.
 
@@ -574,8 +574,6 @@ For addons, they can be organised in the following four levels
   
   e.g. "See you again package, Privilege to re-purchase this product at half price."
 
-
-
 #### 3.1.4 Data structure of fareDetails
 
 A full constructure of fareDetails is like the following. The structure of addon will be explained later.
@@ -677,6 +675,8 @@ A full constructure of addOns is like the following.
   "otherCharges": ""
 }
 ```
+
+#### 3.1.6 A simple example of fareDetails and addOns
 
 For example, the following data of fareDetails 
 
@@ -786,8 +786,6 @@ can be used to construct web elements like the following.
 ### 3.2 Display the fareDetails and addOns
 
 #### 3.2.1 Display fareDetails
-
-
 
 ## 4. Validate the value from fareSelection / addOnSelection using the data from flow
 
