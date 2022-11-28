@@ -193,14 +193,154 @@ if(question.answerType == "EMAIL"){
 
 these two properties  specify the minimum and maximum permitted value when the answerType is `INTEGER, DECIMAL or DATE`
 
-
-
 - `selectMin`
 
 - `selectMax`
 
 Only for `answerType=SELECT_MULTIPLE`, the minimum and maximum number of values from the provided selectOptions that can be selected.
 
+## 3. Display FareDetails and AddOns.
+
+### 3.1 Three level of fares and four level of addOns.
+
+#### 3.1.1 The three level of fares
+
+In the Livn data structure, there are three levels of differentiation to define a bookable product. Besides, for each level and the top level of product, there could be optional addons attached to them
+
+Base Variant → Time Slot → Fare
+
+- **Base Variant** 
+  Base variants are the first level of differentiation of top-level Products into the ultimately bookable product variants. 
+  e.g. 
+  `“Bus” vs “Bus & Boat” options of a city sightseeing pass.`
+
+- **Time Slot** 
+  The second level of differentiation of top-level Products into the ultimately bookable product variants 
+  Within the requested booking date, TimeSlots identify the different bookable departures or activity session start times and/or durations, within their
+  parent ProductVariant, including a generic TimeSlot for open-timed products which do not make that distinction.
+  e.g.
+  ` “7:00 - 10:00”, “9:00 -12:00”`
+
+- **Fare**
+  
+  The third and lowest level of differentiation of top-level Products into the ultimately bookable product variants.
+  Each Fare identifies a bookable pax or ticket type within a specific TimeSlot and thus BaseVariant of the top-level Product. While customers begin the checkout process by selecting a Product and departure or attendance date they wish to make a booking for, it is a selection of these Fares, in some cases combined with optional AddOns, that ultimately forms the concrete basis of the Booking.
+  e.g. 
+  `“Adult”, “Family”,"Child"`
+
+#### 3.1.2  The four level of addOns
+
+For addons, they can be organised in the following four levels
+
+- **Fare level addons** Optional add-on products that can be booked in conjunction with this `Fare`.
+  e.g.   
+  `"champagne breakfast" for fare "Adult", 
+  "nutritious breakfast" for fare "Child"`
+
+- **Time slot level addons** Optional add-on products, that can be booked in conjunction with any `Fare` under this `TimeSlot`.
+  
+  e.g. 
+  `"Photo package",
+   "Photo + Video package"`
+
+- **Base Variant level addons** Optional add-on products, that can be booked in conjunction with any `Fare` across this entire `BaseVariant` and all of its `TimeSlots`.
+  
+  e.g. 
+  `"Exclusive package, Make it a private, more memorable experience with your loved ones"`
+
+- **Product level addons**
+  
+  Optional add-on products, that can be booked in conjunction with any `Fare` across all `BaseVariant` and `TimeSlots`.
+  
+  e.g. 
+  `"See you again package, Privilege to re-purchase this product at half price."`
+
+### 3.2 Display FareDetails
+
+#### 3.2.1 Availability of the three level fareDetails.
+
+The UI will only display available baseVariant, timeslot, fare. For each level, availability should be checked.
+
+- BaseVariant
+
+```java
+
+for (BaseVariant baseVariant:baseVariantList) { 
+    if(baseVariant.available){
+     //display this baseVariant
+    }
+}
+
+
+```
 
 
 
+- TimeSlot
+
+```java
+for(TimeSlot timeslot:timeSlotList){
+    if(timeslot.available){
+      //display this timeSlot
+    }
+}
+```
+
+- Fare
+
+```java
+for(Fare fare:fareList){
+    if(fare.unitsAvailable > 0){
+      //display this fare
+     }
+ }
+```
+
+#### 3.2.2 Description
+
+For baseVariant, the following 3 properties should be used for description.
+
+- `baseVariant.name`
+
+- `baseVariant.description`
+
+- `baseVariant.specialNotes`
+
+
+For timeslot, the following properties should be used for description.
+
+- `timeslot.name`
+
+- `timeslot.description`
+
+- `timeslot.duration`
+
+- `timeslot.durationStr`
+
+- `timeslot.durationMax`
+
+- `timeslot.timeStart`
+
+- `timeslot.timeEnd`
+
+- `timeslot.specialNotes`
+
+For fare, the following properties should be used for description.
+
+- `fare.name`
+
+- `fare.description`
+
+- `fare.ageMin`
+
+- `fare.ageMax`
+
+- `fare.unitsAvailable`
+
+- `fare.price`
+
+- `fare.sepcialNotes`
+
+- `fare.otherCharge`
+
+All the above properties should be displayed to user if present.
