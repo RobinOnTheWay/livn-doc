@@ -1,4 +1,4 @@
-# UI Display and User Input Validation Using Livn API Data
+# UI Display and User Input Validation For Flow Using Livn API Data
 
 ## 0. Reference
 
@@ -255,7 +255,7 @@ For addons, they can be organised in the following four levels
   e.g. 
   `"See you again package, Privilege to re-purchase this product at half price."`
 
-### 3.2 Display FareDetails
+### 3.2 Display FareDetails and Addons
 
 #### 3.2.1 Availability of the three level fareDetails.
 
@@ -264,17 +264,12 @@ The UI will only display available baseVariant, timeslot, fare. For each level, 
 - BaseVariant
 
 ```java
-
 for (BaseVariant baseVariant:baseVariantList) { 
     if(baseVariant.available){
      //display this baseVariant
     }
 }
-
-
 ```
-
-
 
 - TimeSlot
 
@@ -290,7 +285,7 @@ for(TimeSlot timeslot:timeSlotList){
 
 ```java
 for(Fare fare:fareList){
-    if(fare.unitsAvailable > 0){
+    if(fare.unitsAvailable == null || fare.unitsAvailable > 0){
       //display this fare
      }
  }
@@ -305,7 +300,6 @@ For baseVariant, the following 3 properties should be used for description.
 - `baseVariant.description`
 
 - `baseVariant.specialNotes`
-
 
 For timeslot, the following properties should be used for description.
 
@@ -335,6 +329,10 @@ For fare, the following properties should be used for description.
 
 - `fare.ageMax`
 
+- `fare.uintsMin`
+
+- `fare.unitsMax`
+
 - `fare.unitsAvailable`
 
 - `fare.price`
@@ -344,3 +342,130 @@ For fare, the following properties should be used for description.
 - `fare.otherCharge`
 
 All the above properties should be displayed to user if present.
+e.g.
+
+<img src="images/render-ui8.png" title="" alt="fare" width="397">
+
+### 3.3 Display Addons
+
+#### 3.3.1 Addon Level
+
+The addons should be displayed at the same level with its corresponding product level( fare level, timeSlot level, baseVariant level, product level)
+
+e.g. 
+
+A fare-level addon should only be dispalyed with the fare.
+<img src="images/render-ui9.png" title="" alt="addons" width="333">
+
+A timeslot-level should be displayed with timeslot
+
+<img src="images/render-ui10.png" title="" alt="addons" width="295">
+
+#### 3.3.2 Availability of addons
+
+Only available addons should be displayed to the user. For each level of Addons, to check the availablilty of them, check the unitsAvailable.
+
+```java
+for(addon AddOn:AddonList){
+     if(addon.unitsAvailable == null || addon.unitsAvailable > 0){
+         //display this fare
+     }
+ }
+```
+
+#### 3.3.3 Description of addons
+
+To describe addon the following properties should be used.
+
+- `addOn.name`
+
+- `addOn.description`
+
+- `addOn.unitsMin`
+
+- `addOn.unitsMax`
+
+- `addOn.ageMin`
+
+- `addOn.ageMax`
+
+- `addOn.specialNotes`
+
+- `addOn.unitsAvailable`
+
+- `addOn.price`
+
+- `addOn.otherCharges`
+
+## 4. Validate FareSelection and AddonSelection
+
+### 4.1 Validate FareSelection
+
+For fareSelection, use the following properties to validate user's input if they are present. The input here means `fareSelection.quantity`.
+
+- `unitsMin`
+
+- `unitsMax`
+
+- `unitsMultipleOf`
+
+- `unitsAvailable`
+  
+  e.g.
+  
+  ```java
+  if((fare.unitsMin != null && input < fare.unitsMin) 
+      || (fare.unitsMax != null && input > fare.unitsMax))
+  {
+        //prompt user to input a value between unitsMin and unitsMax.
+  }else if(fare.unitsMultipleOf != null &&（input % fare.unitsMultipleOf != 0)
+  {
+       //prompt user to input a value which is a multiple of fare.unitsMultipleOf.
+  }else if(fare.unitsAvailable != null && input > fare.unitsAvailable)
+  {
+      // prompt user to input a value which is less than fare.unitsAvailable.
+  }
+  ```
+
+## 4.2 Validate AddOnSelection
+
+For AddOnSelection, use the following properties to validate user's input if they are present. The input here means `addOnSelection.quantity`.
+
+- `unitsMin`
+
+- `unitsMax`
+
+- `unitsMultipleOf`
+
+- `unitsAvailable`
+
+- `unitsLinkedToParent`
+
+e.g.
+
+```java
+if((addOn.unitsMin != null && input < fare.unitsMin) 
+    || (addOn.unitsMax != null && input > fare.unitsMax)){
+     //prompt user to input a value between unitsMin and unitsMax.
+}else if(addOn.unitsMultipleOf != null &&（input % addOn.unitsMultipleOf != 0)
+{
+     //prompt user to input a value which is a multiple of fare.unitsMultipleOf.
+}else if(addOn.unitsAvailable != null && input > addOn.unitsAvailable)
+{
+     // prompt user to input a value which is less than fare.unitsAvailable.
+}else if(addOn.unitsLinkedToParent && input > fare.quantity){
+    // prompt user to input a value which less than or equal to fare.quantity.
+}
+```
+
+## 5. Check expiration for steps.
+
+Some steps (usally FareSelection, FinalQuote and TemppraryHold) come with a property `expires` which means when that specified time is passed, the whole flow is expired you have to go back to a previous step to contine the flow.
+
+For steps with property `expires`, it is good to add a timer to remind the user to finish the current step before it expires.
+
+e.g.
+
+<img src="images/render-ui11.png" title="" alt="expirarionCheck" width="438">
+
+For expired steps, it is a good way to prompt the user move back one step contine the flow.
