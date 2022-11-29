@@ -1,5 +1,9 @@
 # UI Display and User Input Validation For Flow Using Livn API Data
 
+**PLEASE KEEP THIS FILE <mark>CONFIDENTIAL</mark>**
+
+<img title="" src="images/gofiji.jpeg" alt="logo" width="319">
+
 ## 0. Reference
 
 Use the following link to refer data schemas and test apis
